@@ -79,9 +79,9 @@ def main():
     bb_imgs, bb_accs = init_bb_imgs()    
    
     bb_img = bb_imgs[0]
-    bb_rct = bb_img.get_rect()  # 爆弾Rect
-    bb_rct.centerx = random.randint(0, WIDTH)  # 横初期座標
-    bb_rct.centery = random.randint(0, HEIGHT)  # 縦初期座標
+    bb_rct = bb_img.get_rect()  
+    bb_rct.centerx = random.randint(0, WIDTH)  
+    bb_rct.centery = random.randint(0, HEIGHT)  
     vx, vy = +5, +5
 
     clock = pg.time.Clock()
