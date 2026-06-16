@@ -2,6 +2,7 @@ import os
 import sys
 import pygame as pg
 import random
+import time
 
 
 WIDTH, HEIGHT = 1100, 650
@@ -26,6 +27,36 @@ def check_bound(rct: pg.Rect) -> tuple[bool, bool]:
     if rct.top < 0 or HEIGHT < rct.bottom:  # 縦方向判定
         tate = False
     return yoko, tate
+
+def game_over(screen: pg.Surface) -> None:
+    black = pg.Surface((WIDTH, HEIGHT))
+    black.fill((0, 0, 0))
+    black.set_alpha(200)
+
+    font = pg.font.Font(None, 80)
+    txt = font.render("Game Over", True, (255, 255, 255))
+    txt_rct = txt.get_rect()
+    txt_rct.center = (WIDTH//2, HEIGHT//2 )
+    black.blit(txt, txt_rct)
+
+    left = pg.image.load("fig/8.png")
+    left = pg.transform.rotozoom(left, 0, 1.0)
+    left_rct = left.get_rect()
+    left_rct.center = (WIDTH//2 - 220, HEIGHT//2 )
+    black.blit(left, left_rct)
+
+    right = pg.image.load("fig/8.png")
+    right = pg.transform.rotozoom(right, 0, 1.0)
+    right_rct = right.get_rect()
+    right_rct.center = (WIDTH//2 + 220, HEIGHT//2 )
+    black.blit(right, right_rct)
+
+    screen.blit(black, (0, 0))
+    pg.display.update()
+    time.sleep(5)
+
+
+
 
 
 def main():
@@ -52,6 +83,7 @@ def main():
                 return
         if kk_rct.colliderect(bb_rct):  # こうかとんRectと爆弾Rectが重なったら
             print("ゲームオーバー")
+            game_over(screen)
             return
         screen.blit(bg_img, [0, 0]) 
 
